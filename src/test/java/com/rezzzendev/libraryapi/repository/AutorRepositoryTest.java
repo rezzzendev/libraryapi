@@ -6,6 +6,7 @@ import com.rezzzendev.libraryapi.model.Livro;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -26,7 +27,7 @@ public class AutorRepositoryTest {
     @Test
     public void salvarTest() {
         Autor autor = new Autor();
-        autor.setName("Marcos");
+        autor.setName("Matheus");
         autor.setNacionalidade("Brasileiro");
         autor.setDataNascimento(LocalDate.of(2005, 1, 31));
 
@@ -36,20 +37,20 @@ public class AutorRepositoryTest {
 
     @Test
     public void atualizarTest() {
-       var id = UUID.fromString("1a27c009-ca64-4ad7-ad27-d894ecf2a6f3");
+        var id = UUID.fromString("e5dbf278-db89-42db-8e4a-60d3993abcd4");
 
-       Optional<Autor> possivelAutor = repository.findById(id);
+        Optional<Autor> possivelAutor = repository.findById(id);
 
-       if(possivelAutor.isPresent()) {
+        if(possivelAutor.isPresent()) {
 
-           Autor autorEncontrado = possivelAutor.get();
-           System.out.println("Dados do autor: ");
-           System.out.println(possivelAutor.get());
+            Autor autorEncontrado = possivelAutor.get();
+            System.out.println("Dados do autor: ");
+            System.out.println(possivelAutor.get());
 
-           autorEncontrado.setDataNascimento(LocalDate.of(1980, 1, 30));
+            autorEncontrado.setDataNascimento(LocalDate.of(1800, 1, 30));
 
-           repository.save(autorEncontrado);
-       }
+            repository.save(autorEncontrado);
+        }
     }
 
     @Test
@@ -107,4 +108,13 @@ public class AutorRepositoryTest {
         livroRepository.saveAll(autor.getLivros());
     }
 
+    @Test
+    void listarLivrosAutor() {
+        var id = UUID.fromString("cb62c18d-f21e-4f95-bbd9-5208f45cb854");
+        var autor = repository.findById(id).get();
+
+        List<Livro> livrosLista = livroRepository.findByAutor(autor);
+        autor.setLivros(livrosLista);
+        autor.getLivros().forEach(System.out::println);
+    }
 }

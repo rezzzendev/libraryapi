@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "autor", schema = "public")
 @Data
+@ToString(exclude = "livros")
 public class Autor {
 
     @Id
@@ -29,7 +31,8 @@ public class Autor {
     private String nacionalidade;
 
     @OneToMany(mappedBy = "autor"
-            //,cascade = CascadeType.ALL
+            ,cascade = CascadeType.ALL
+            ,fetch = FetchType.LAZY
     )
     private List<Livro> livros;
 

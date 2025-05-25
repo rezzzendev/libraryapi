@@ -2,6 +2,7 @@ package com.rezzzendev.libraryapi.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "livro")
 @Data//lombok gerar os getter e setter toString etc, mais completo que o @Getter@Setter
+@ToString(exclude = "autor")
 public class Livro {
 
     @Id
