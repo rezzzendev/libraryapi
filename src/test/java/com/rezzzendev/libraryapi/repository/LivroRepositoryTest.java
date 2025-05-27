@@ -161,4 +161,16 @@ class LivroRepositoryTest {
         var resultado = repository.listarGenerosAutoresBrasileiros();
         resultado.forEach(System.out::println);
     }
+
+    @Test
+    void listarPorGeneroQueryParamTest() {
+        var resultado = repository.findByGenero(GeneroLivro.ROMANCE, "preco");
+        resultado.forEach(System.out::println);
+    }
+
+    @Test
+    void listarPorGeneroPositionalParamTest() {
+        var resultado = repository.findByGenero(GeneroLivro.ROMANCE, "preco");
+        resultado.forEach(System.out::println);
+    }
 }
