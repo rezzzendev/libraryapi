@@ -65,16 +65,16 @@ class LivroRepositoryTest {
     @Test//usar essa manual, é a padrão
     void salvarAutorELivroTest() {
         Livro livro = new Livro();
-        livro.setIsbn("90887-84874");
-        livro.setPreco(BigDecimal.valueOf(100));
-        livro.setGenero(GeneroLivro.FICCAO);
-        livro.setTitulo("Harry");
+        livro.setIsbn("90899-84875");
+        livro.setPreco(BigDecimal.valueOf(50));
+        livro.setGenero(GeneroLivro.ROMANCE);
+        livro.setTitulo("A vegetariana");
         livro.setDataPublicacao(LocalDate.of(1980, 1, 2));
 
         Autor autor = new Autor();
-        autor.setName("Joao");
-        autor.setNacionalidade("Brasileiro");
-        autor.setDataNascimento(LocalDate.of(1980, 1, 31));
+        autor.setName("Han Kang");
+        autor.setNacionalidade("Coreano");
+        autor.setDataNascimento(LocalDate.of(1975, 8, 31));
 
         autorRepository.save(autor);
         livro.setAutor(autor);
@@ -172,5 +172,15 @@ class LivroRepositoryTest {
     void listarPorGeneroPositionalParamTest() {
         var resultado = repository.findByGenero(GeneroLivro.ROMANCE, "preco");
         resultado.forEach(System.out::println);
+    }
+
+    @Test
+    void deletePorGeneroTest() {
+        repository.deleteByGenero(GeneroLivro.ROMANCE);
+    }
+
+    @Test
+    void updateDataPublicacaoTest() {
+        repository.updateDataPublicacao(LocalDate.of(2000,6,6));
     }
 }
